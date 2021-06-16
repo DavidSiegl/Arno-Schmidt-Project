@@ -1,0 +1,61 @@
+"id","state_original","state_current","country_current","country_original","location_current","location_original","lat","long","category","work_referenced"
+"1","Niedersachsen","Niedersachsen","Germany","Germany","Bargfeld","Bargfeld",52.703611,10.346944,"village",14
+"2","Niedersachsen","Niedersachsen","Germany","Germany","Bargfeld","Bargfeld",52.703611,10.346944,"village",16
+"3","Niedersachsen","Niedersachsen","Germany","Germany","Bargfeld","Bargfeld",52.703611,10.346944,"village",21
+"4","Niedersachsen","Niedersachsen","Germany","Germany","Bargfeld","Bargfeld",52.703611,10.346944,"village",25
+"5","Niedersachsen","Niedersachsen","Germany","Germany","Ahlden","Ahlden",52.7591196,9.5515675,"village",8
+"6","Niedersachsen","Niedersachsen","Germany","Germany","Benefeld","Benefeld",52.9059502,9.6352774,"village",3
+"7","Niedersachsen","Niedersachsen","Germany","Germany","Benefeld","Benefeld",52.9059502,9.6352774,"village",4
+"8","Niedersachsen","Niedersachsen","Germany","Germany","Benefeld","Benefeld",52.9059502,9.6352774,"village",26
+"9","Vestland","Vestland","Norway","Norway","Bergen","Bergen",60.3943055,5.3259192,"city",8
+"10","Vestland","Vestland","Norway","Norway","Bergen","Bergen",60.3943055,5.3259192,"city",24
+"11","Freie Hansestadt","Freie Hansestadt","Germany","Germany","Bremerhaven","Bremerhaven",53.5522264,8.5865509,"city",27
+"12","Andalusia","Andalusia","Spain","Spain","Cadiz","Cadiz",36.5297438,-6.2928976,"city",1
+"13","Niedersachsen","Niedersachsen","Germany","Germany","Cordingen","Cordingen",52.9093539,9.6221033,"village",4
+"14","Niedersachsen","Niedersachsen","Germany","Germany","Cordingen","Cordingen",52.9093539,9.6221033,"village",5
+"15","Jutland","Jutland","Denmark","Denmark","Esbjerg","Esbjerg",55.4664892,8.4520751,"city",27
+"16","Sachsen","Sachsen","Germany","Germany","Goerlitz","Goerlitz",51.152778,14.987222,"city",24
+"17","Sachsen","Sachsen","Germany","Germany","Goerlitz","Goerlitz",51.152778,14.987222,"city",25
+"18","Sachsen","Sachsen","Germany","Germany","Goerlitz","Goerlitz",51.152778,14.987222,"city",3
+"19","Hamburg","Hamburg","Germany","Germany","Hamburg","Hamburg",53.550341,10.000654,"city",4
+"20","Hamburg","Hamburg","Germany","Germany","Hamburg","Hamburg",53.550341,10.000654,"city",5
+"21","Hamburg","Hamburg","Germany","Germany","Hamburg","Hamburg",53.550341,10.000654,"city",25
+"22","Niedersachsen","Niedersachsen","Germany","Germany","Hankensbuettel","Hankensbuettel",52.730833,10.603611,"village",14
+"23","Niedersachsen","Niedersachsen","Germany","Germany","Huenzingen","Huenzingen",52.8976,9.5905,"village",5
+"24","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Husum","Husum",54.4853638,9.0538156,"city",24
+"25","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Husum","Husum",54.4853638,9.0538156,"city",25
+"26","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Husum","Husum",54.4853638,9.0538156,"city",27
+"27","Niedersachsen","Niedersachsen","Germany","Germany","Kirchwalsede","Kirchwalsede",53.0195569,9.3952433,"village",24
+"28","Niedersachsen","Niedersachsen","Germany","Germany","Kirchwalsede","Kirchwalsede",53.0195569,9.3952433,"village",8
+"29","Niederschlesien","Niederschlesien","Poland","Prussia","Luban","Lauban",51.12076,15.29186,"city",24
+"30","Niederschlesien","Niederschlesien","Poland","Prussia","Luban","Lauban",51.12076,15.29186,"city",25
+"31","Hamburg","Hamburg","Germany","Germany","Hamburg","Hamburg",53.550341,10.000654,"city",27
+"32","Jutland","Jutland","Denmark","Denmark","Nordby","Nordby",55.4498384,8.4058414,"island",27
+"33","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Nordstrand","Nordstrand",54.4873775,8.8652863,"island",24
+"34","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Nordstrand","Nordstrand",54.4873775,8.8652863,"island",25
+"35","Oslo","Oslo","Norway","Norway","Oslo","Oslo",59.9133301,10.7389701,"region",14
+"36","Oslo","Oslo","Norway","Norway","Oslo","Oslo",59.9133301,10.7389701,"region",3
+"37","Limerick","Limerick","Ireland","Ireland","Pallaskenry","Pallaskenry",52.64874795,-8.85953336351144,"village",8
+"38","Niedersachsen","Niedersachsen","Germany","Germany","Raederloh","Raederloh",52.7271759,10.4099638,"village",20
+"39","Niedersachsen","Niedersachsen","Germany","Germany","Raederloh","Raederloh",52.7271759,10.4099638,"village",22
+"40","Esbjerg","Esbjerg","Denmark","Denmark","Ribe","Ribe",55.3284036,8.7647838,"city",27
+"41","More og Romsdal","More og Romsdal","Norway","Norway","Romsdal","Romsdal",62.4390366,5.29308820117158,"region",3
+"42","More og Romsdal","More og Romsdal","Norway","Norway","Romsdal","Romsdal",62.4390366,5.29308820117158,"region",8
+"43","More og Romsdal","More og Romsdal","Norway","Norway","Romsdal","Romsdal",62.4390366,5.29308820117158,"region",27
+"44","More og Romsdal","More og Romsdal","Norway","Norway","Romsdal","Romsdal",62.4390366,5.29308820117158,"region",24
+"45","Niedersachsen","Niedersachsen","Germany","Germany","Rotenburg","Rotenburg",53.1108906,9.4049292,"village",5
+"46","Inner Hebrides","Inner Hebrides","Scotland","Scotland","Skye","Skye",57.3275,-6.247778,"island",5
+"47","Inner Hebrides","Inner Hebrides","Scotland","Scotland","Skye","Skye",57.3275,-6.247778,24
+"48","Inner Hebrides","Inner Hebrides","Scotland","Scotland","Skye","Skye",57.3275,-6.247778,27
+"49","Fano","Fano","Denmark","Denmark","Sonderho","Sonderho",55.342998628, 8.4666648,"village",27
+"50","Niedersachsen","Niedersachsen","Germany","Germany","Walsrode","Walsrode",52.8625395,9.5883023,"city",4
+"51","Niedersachsen","Niedersachsen","Germany","Germany","Walsrode","Walsrode",52.8625395,9.5883023,"city",5
+"52","Stonehenge","Stonehenge","England","England","Stonehenge","Stonehenge",51.178889,-1.826389,"island",24
+"53","Stonehenge","Stonehenge","England","England","Stonehenge","Stonehenge",51.178889,-1.826389,"island",27
+"54","Schleswig-Holstein","Schleswig-Holstein","Germany","Germany","Toenning","Toenning",54.317222,8.942778,"city",27
+"55","Venezia","Venezia","Italy","Italy","Venezia","Venezia",45.4371908,12.3345898,"city",24
+"56","Venezia","Venezia","Italy","Italy","Venezia","Venezia",45.4371908,12.3345898,"city",27
+"57","Venezia","Venezia","Italy","Italy","Venezia","Venezia",45.4371908,12.3345898,"city",25
+"58","Niedersachsen","Niedersachsen","Germany","Germany","Visselhoevede","Visselhoevede",52.9847,9.5782,"city",3
+"59","Niedersachsen","Niedersachsen","Germany","Germany","Visselhoevede","Visselhoevede",52.9847,9.5782,"city",4
+"60","Niedersachsen","Niedersachsen","Germany","Germany","Visselhoevede","Visselhoevede",52.9847,9.5782,"city",5

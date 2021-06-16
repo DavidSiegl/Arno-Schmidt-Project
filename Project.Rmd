@@ -1,0 +1,178 @@
+---
+title: "Project - Arno Schmidt"
+author: "Florian Klement & David Siegl"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+```{r}
+library(knitr)
+library(dbplyr)
+library(dplyr)
+library(foreign)
+library(ggrepel)
+library(haven)
+library(kableExtra)
+library(tidyr)
+library(tidyverse)
+library(tidygeocoder)
+library(ggplot2)
+library(maps)
+library(ggrepel)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(rgdal)
+library(readr)
+library(maptools)
+library(ggspatial)
+library(sf)
+library(osmdata)
+library(rgeos)
+library(igraph)
+library(ggraph)
+library(leaflet)
+library(htmlwidgets)
+```
+
+```{r}
+locations_lived <- read.csv("./Arno Schmidt_locations_lived.csv")
+
+locations_lived <- locations_lived %>% 
+   tidygeocoder::geocode(city = location_current, country = country_current, method = 'osm', 
+          full_results = TRUE, custom_query= list(extratags = 1))
+
+locations_lived_filtered <- locations_lived %>%
+  select(ï..address, state_original, state_current, country_current, country_original, location_current, location_original, lat, long, category, moved_in, moved_out)
+
+#write.csv(locations_lived_filtered, "Arno Schmidt_locations_lived_latlong.csv")
+```
+
+
+```{r}
+locations_referenced <- read.csv("./Arno Schmidt_locations_referenced.csv")
+
+locations_referenced <- locations_referenced %>% 
+   tidygeocoder::geocode(city = location_current, country = country_current, method = 'osm', 
+          full_results = TRUE, custom_query= list(extratags = 1))
+
+locations_referenced_filtered <- locations_referenced %>%
+  select(state_original, state_current, country_current, country_original, location_current, ï..location_original, lat, long, category, work_referenced)
+
+#write.csv(locations_referenced_filtered, "Arno Schmidt_locations_referenced_latlong.csv")
+```
+
+
+```{r}
+locations_lived <- read.csv("./Arno Schmidt_locations_lived_latlong.csv")
+locations_referenced <- read.csv("./Arno Schmidt_locations_referenced_latlong.csv")
+works <- read.csv("./Arno Schmidt_works.csv")
+```
+
+
+```{r}
+world <- ne_countries(scale = "medium", returnclass = "sf")
+ 
+rivers <- readOGR("./layer.riverData", "ne_50m_rivers_lake_centerlines")
+
+rivers_f <- fortify(rivers)
+
+lüneburg <- readOGR("./Lüneburger Heide", "Lüneburger Heide")
+
+lüneburg_f <- fortify(lüneburg)
+
+bundesländer <- readOGR("./Bundesländer", "DEU_adm1")
+
+bundesländer_f <- fortify(bundesländer)
+
+theme_set(theme_bw())
+waterColor = "lightsteelblue2"
+```
+
+
+```{r}
+locations_lived_dupl <- locations_lived %>%
+  filter(id != 6)
+
+xlim=c(4,16.5); ylim=c(47.5,60)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
+    geom_point(data = locations_lived_dupl, aes(x=long, y=lat), color = "red", size = 2) +
+    geom_text_repel(data = locations_lived_dupl, aes(x=long, y=lat, label = location_original), force = 3, segment.alpha = 0) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    theme(panel.background = element_rect(fill = waterColor)) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    theme(panel.background = element_rect(fill = waterColor),
+          axis.title.y=element_blank(),
+          axis.title.x=element_blank())
+
+xlim=c(4,16.5); ylim=c(47.5,60)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
+    geom_path(data = locations_lived, aes(x = long, y = lat), color = "red", size = .3) +
+    geom_point(data = locations_lived, aes(x=long, y=lat), color = "black", size = 2) +
+    geom_text_repel(data = locations_lived, aes(x=long, y=lat, label = location_original), force = 3, segment.alpha = 0) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    theme(panel.background = element_rect(fill = waterColor)) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    theme(panel.background = element_rect(fill = waterColor),
+          axis.title.y=element_blank(),
+          axis.title.x=element_blank())
+
+locations_lived_germ <- locations_lived %>%
+  filter(country_current == "Germany")
+
+xlim=c(6.25,11.5); ylim=c(48.5,54)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
+    geom_path(data = bundesländer_f, aes(x = long, y = lat, group = group), color = "red", size = .05) +
+    geom_polygon(data = lüneburg_f, aes(x = long, y = lat, group = group), color = "darkgreen", fill = "darkgreen", size =  .2) +
+    geom_point(data = locations_lived_germ, aes(x=long, y=lat, color=category), size = 2) +
+    scale_color_manual(name="Area", values = c("city"="red", "village"="green")) +
+    geom_text_repel(data = locations_lived_germ, aes(x=long, y=lat, label = location_original), force = 3, segment.alpha = 0) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    theme(panel.background = element_rect(fill = waterColor)) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    theme(panel.background = element_rect(fill = waterColor),
+          axis.title.y=element_blank(),
+          axis.title.x=element_blank())
+
+locations_lived_lüneburg <- locations_lived %>%
+  filter(location_original == "Bargfeld" | location_original == "Cordingen")
+
+xlim=c(8.5,11.5); ylim=c(52.25,54)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
+    geom_path(data = bundesländer_f, aes(x = long, y = lat, group = group), color = "red", size = .05) +
+    geom_polygon(data = lüneburg_f, aes(x = long, y = lat, group = group), color = "darkgreen", fill = "darkgreen", size =  .2) +
+    geom_point(data = locations_lived_lüneburg, aes(x=long, y=lat, color=category), size = 2) +
+    scale_color_manual(name="Area", values = c("city"="red", "village"="green")) +
+    geom_text_repel(data = locations_lived_lüneburg, aes(x=long, y=lat, label = location_original), force = 3, segment.alpha = 0) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    theme(panel.background = element_rect(fill = waterColor)) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    theme(panel.background = element_rect(fill = waterColor),
+          axis.title.y=element_blank(),
+          axis.title.x=element_blank())
+```
+```{r}
+locations_lived_leaflet <- locations_lived %>%
+  mutate(popup = paste0("Arno Schmidt lived here from ", moved_in, " to ", moved_out))
+
+m <- leaflet(locations_lived_leaflet) %>%
+  addProviderTiles(providers$Stamen.Toner) %>%
+  setView(lng = 11, lat = 52, zoom = 7) %>%
+  addMarkers(~long, ~lat, popup=~popup, label=~location_original)
+  m
+```
+```{r}
+saveWidget(m, 'map_locations_lived.html', selfcontained = FALSE)
+```
