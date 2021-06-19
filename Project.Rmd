@@ -94,7 +94,7 @@ waterColor = "lightsteelblue2"
 locations_lived_dupl <- locations_lived %>%
   filter(id != 6)
 
-xlim=c(4,16.5); ylim=c(47.5,60)
+xlim=c(3.5,17); ylim=c(47.5,60)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
     geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
@@ -108,7 +108,7 @@ ggplot(data = world) +
           axis.title.y=element_blank(),
           axis.title.x=element_blank())
 
-xlim=c(4,16.5); ylim=c(47.5,60)
+xlim=c(3.5,17); ylim=c(47.5,60)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
     geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
@@ -165,14 +165,111 @@ ggplot(data = world) +
 ```
 ```{r}
 locations_lived_leaflet <- locations_lived %>%
-  mutate(popup = paste0("Arno Schmidt lived here from ", moved_in, " to ", moved_out))
+  mutate(popup = paste0(address, "<br> Arno Schmidt lived here from ", moved_in, " to ", moved_out))
 
 m <- leaflet(locations_lived_leaflet) %>%
   addProviderTiles(providers$Stamen.Toner) %>%
   setView(lng = 11, lat = 52, zoom = 7) %>%
   addMarkers(~long, ~lat, popup=~popup, label=~location_original)
-  m
+  #m
 ```
+
+
 ```{r}
-saveWidget(m, 'map_locations_lived.html', selfcontained = FALSE)
+#saveWidget(m, 'map_locations_lived.html', selfcontained = FALSE)
+```
+
+
+```{r}
+locations_referenced_unique <- locations_referenced %>%
+  select(-c(1, 11)) %>%
+  distinct()
+
+xlim=c(-10,16.5); ylim=c(35,63.5)
+ggplot(data = world) +
+    geom_sf(fill="white", color="white") +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
+    geom_point(data = locations_referenced_unique, aes(x=long, y=lat), color = "red", size = 2) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    theme(panel.background = element_rect(fill = waterColor)) +
+    annotation_scale(location = "bl", width_hint = 0.25) +
+    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
+    theme(panel.background = element_rect(fill = waterColor),
+          axis.title.y=element_blank(),
+          axis.title.x=element_blank())
+```
+
+
+```{r}
+locations_referenced_joined <- locations_referenced %>%
+  left_join(works, by = c("work_referenced"="id"))
+
+locations_referenced_joined_ZT <- locations_referenced_joined %>%
+  filter(title == "Zettel's Traum")
+
+locations_referenced_joined_AB <- locations_referenced_joined %>%
+  filter(title == "Abend mit Goldrand")
+
+locations_referenced_joined_G <- locations_referenced_joined %>%
+  filter(title == "Gadir oder erkenne dich")
+
+locations_referenced_joined_B <- locations_referenced_joined %>%
+  filter(title == "Brand's Haide")
+
+locations_referenced_joined_S <- locations_referenced_joined %>%
+  filter(title == "Schwarze Spiegel")
+
+locations_referenced_joined_F <- locations_referenced_joined %>%
+  filter(title == "Aus dem Leben eines Fauns")
+
+locations_referenced_joined_H <- locations_referenced_joined %>%
+  filter(title == "Das steinerne Herz")
+
+locations_referenced_joined_K <- locations_referenced_joined %>%
+  filter(title == "Kaff auch Mare Crisium")
+
+locations_referenced_joined_W <- locations_referenced_joined %>%
+  filter(title == "Windmuehlen")
+
+locations_referenced_joined_KG <- locations_referenced_joined %>%
+  filter(title == "Kundisches Geschirr")
+
+locations_referenced_joined_P <- locations_referenced_joined %>%
+  filter(title == "Piporakemes!")
+
+locations_referenced_joined_WS <- locations_referenced_joined %>%
+  filter(title == "Die Wasserstrasse")
+
+locations_referenced_joined_U <- locations_referenced_joined %>%
+  filter(title == "Die Umsiedler")
+
+locations_referenced_joined_SA <- locations_referenced_joined %>%
+  filter(title == "Die Schule der Atheisten")
+
+m2 <- leaflet() %>%
+  addProviderTiles(providers$Stamen.Toner) %>%
+  addMarkers(data=locations_referenced_joined_ZT, ~long, ~lat, label=~location_original, group = "Zettel's Traum") %>%
+  addMarkers(data=locations_referenced_joined_AB, ~long, ~lat, label=~location_original, group = "Abend mit Goldrand") %>%
+  addMarkers(data=locations_referenced_joined_G, ~long, ~lat, label=~location_original, group = "Gadir oder erkenne dich") %>%
+  addMarkers(data=locations_referenced_joined_B, ~long, ~lat, label=~location_original, group = "Brand's Haide") %>%
+  addMarkers(data=locations_referenced_joined_S, ~long, ~lat, label=~location_original, group = "Schwarze Spiegel") %>%
+  addMarkers(data=locations_referenced_joined_F, ~long, ~lat, label=~location_original, group = "Aus dem Leben eines Fauns") %>%
+  addMarkers(data=locations_referenced_joined_H, ~long, ~lat, label=~location_original, group = "Das steinerne Herz") %>%
+  addMarkers(data=locations_referenced_joined_K, ~long, ~lat, label=~location_original, group = "Kaff auch Mare Crisium") %>%
+  addMarkers(data=locations_referenced_joined_W, ~long, ~lat, label=~location_original, group = "Windmuehlen") %>%
+  addMarkers(data=locations_referenced_joined_KG, ~long, ~lat, label=~location_original, group = "Kundisches Geschirr") %>%
+  addMarkers(data=locations_referenced_joined_P, ~long, ~lat, label=~location_original, group = "Piporakemes!") %>%
+  addMarkers(data=locations_referenced_joined_WS, ~long, ~lat, label=~location_original, group = "Die Wasserstrasse") %>%
+  addMarkers(data=locations_referenced_joined_U, ~long, ~lat, label=~location_original, group = "Die Umsiedler") %>%
+  addMarkers(data=locations_referenced_joined_SA, ~long, ~lat, label=~location_original, group = "Die Schule der Atheisten") %>%
+  addLayersControl(
+    overlayGroups = c("Zettel's Traum", "Abend mit Goldrand", "Gadir oder erkenne dich", "Brand's Haide", "Schwarze Spiegel", "Aus dem Leben eines Fauns", "Das steinerne Herz", "Kaff auch Mare Crisium", "Windmuehlen", "Kundisches Geschirr", "Piporakemes!", "Die Wasserstrasse", "Die Umsiedler", "Die Schule der Atheisten")
+  )%>%
+  hideGroup(c("Zettel's Traum", "Abend mit Goldrand", "Gadir oder erkenne dich", "Brand's Haide", "Schwarze Spiegel", "Aus dem Leben eines Fauns", "Das steinerne Herz", "Kaff auch Mare Crisium", "Windmuehlen", "Kundisches Geschirr", "Piporakemes!", "Die Wasserstrasse", "Die Umsiedler", "Die Schule der Atheisten"))
+  #m2
+```
+
+
+```{r}
+#saveWidget(m2, 'map_locations_referenced.html', selfcontained = FALSE)
 ```
