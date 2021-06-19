@@ -1,5 +1,5 @@
 ---
-title: "Project - Arno Schmidt"
+title: "Project - Mapping the life and work of Arno Schmidt"
 author: "Florian Klement & David Siegl"
 output:
   pdf_document: default
@@ -167,10 +167,30 @@ ggplot(data = world) +
 locations_lived_leaflet <- locations_lived %>%
   mutate(popup = paste0(address, "<br> Arno Schmidt lived here from ", moved_in, " to ", moved_out))
 
-m <- leaflet(locations_lived_leaflet) %>%
+locations_lived_leaflet_city <- locations_lived_leaflet %>%
+  filter(category == "city")
+
+locations_lived_leaflet_village <- locations_lived_leaflet %>%
+  filter(category == "village")
+
+locations_lived_leaflet_1stperiod <- locations_lived_leaflet %>%
+  filter(moved_in >= 1914 & moved_in < 1938)
+
+locations_lived_leaflet_2ndperiod <- locations_lived_leaflet %>%
+  filter(moved_out >= 1940 & moved_out <= 1945)
+
+locations_lived_leaflet_3rdperiod <- locations_lived_leaflet %>%
+  filter(moved_out >= 1950 & moved_out <= 1979)
+
+m <- leaflet() %>%
   addProviderTiles(providers$Stamen.Toner) %>%
   setView(lng = 11, lat = 52, zoom = 7) %>%
-  addMarkers(~long, ~lat, popup=~popup, label=~location_original)
+  addMarkers(data=locations_lived_leaflet_1stperiod, ~long, ~lat, popup=~popup, label=~location_original, group="1914-1938") %>%
+  addMarkers(data=locations_lived_leaflet_2ndperiod, ~long, ~lat, popup=~popup, label=~location_original, group="1938-1945") %>%
+  addMarkers(data=locations_lived_leaflet_3rdperiod, ~long, ~lat, popup=~popup, label=~location_original, group="1945-1979") %>%
+  addLayersControl(
+    overlayGroups = c("1914-1938", "1938-1945", "1945-1979")
+  )
   #m
 ```
 
@@ -248,24 +268,24 @@ locations_referenced_joined_SA <- locations_referenced_joined %>%
 
 m2 <- leaflet() %>%
   addProviderTiles(providers$Stamen.Toner) %>%
-  addMarkers(data=locations_referenced_joined_ZT, ~long, ~lat, label=~location_original, group = "Zettel's Traum") %>%
-  addMarkers(data=locations_referenced_joined_AB, ~long, ~lat, label=~location_original, group = "Abend mit Goldrand") %>%
-  addMarkers(data=locations_referenced_joined_G, ~long, ~lat, label=~location_original, group = "Gadir oder erkenne dich") %>%
-  addMarkers(data=locations_referenced_joined_B, ~long, ~lat, label=~location_original, group = "Brand's Haide") %>%
-  addMarkers(data=locations_referenced_joined_S, ~long, ~lat, label=~location_original, group = "Schwarze Spiegel") %>%
-  addMarkers(data=locations_referenced_joined_F, ~long, ~lat, label=~location_original, group = "Aus dem Leben eines Fauns") %>%
-  addMarkers(data=locations_referenced_joined_H, ~long, ~lat, label=~location_original, group = "Das steinerne Herz") %>%
-  addMarkers(data=locations_referenced_joined_K, ~long, ~lat, label=~location_original, group = "Kaff auch Mare Crisium") %>%
-  addMarkers(data=locations_referenced_joined_W, ~long, ~lat, label=~location_original, group = "Windmuehlen") %>%
-  addMarkers(data=locations_referenced_joined_KG, ~long, ~lat, label=~location_original, group = "Kundisches Geschirr") %>%
-  addMarkers(data=locations_referenced_joined_P, ~long, ~lat, label=~location_original, group = "Piporakemes!") %>%
-  addMarkers(data=locations_referenced_joined_WS, ~long, ~lat, label=~location_original, group = "Die Wasserstrasse") %>%
-  addMarkers(data=locations_referenced_joined_U, ~long, ~lat, label=~location_original, group = "Die Umsiedler") %>%
-  addMarkers(data=locations_referenced_joined_SA, ~long, ~lat, label=~location_original, group = "Die Schule der Atheisten") %>%
+  addMarkers(data=locations_referenced_joined_ZT, ~long, ~lat, label=~location_original, group = "Zettel's Traum (1970)") %>%
+  addMarkers(data=locations_referenced_joined_AB, ~long, ~lat, label=~location_original, group = "Abend mit Goldrand (1975)") %>%
+  addMarkers(data=locations_referenced_joined_G, ~long, ~lat, label=~location_original, group = "Gadir oder erkenne dich (1949)") %>%
+  addMarkers(data=locations_referenced_joined_B, ~long, ~lat, label=~location_original, group = "Brand's Haide (1951)") %>%
+  addMarkers(data=locations_referenced_joined_S, ~long, ~lat, label=~location_original, group = "Schwarze Spiegel (1951)") %>%
+  addMarkers(data=locations_referenced_joined_F, ~long, ~lat, label=~location_original, group = "Aus dem Leben eines Fauns (1953)") %>%
+  addMarkers(data=locations_referenced_joined_H, ~long, ~lat, label=~location_original, group = "Das steinerne Herz (1956)") %>%
+  addMarkers(data=locations_referenced_joined_K, ~long, ~lat, label=~location_original, group = "Kaff auch Mare Crisium (1960)") %>%
+  addMarkers(data=locations_referenced_joined_W, ~long, ~lat, label=~location_original, group = "Windmuehlen (1960)") %>%
+  addMarkers(data=locations_referenced_joined_KG, ~long, ~lat, label=~location_original, group = "Kundisches Geschirr (1962)") %>%
+  addMarkers(data=locations_referenced_joined_P, ~long, ~lat, label=~location_original, group = "Piporakemes! (1962)") %>%
+  addMarkers(data=locations_referenced_joined_WS, ~long, ~lat, label=~location_original, group = "Die Wasserstrasse (1963)") %>%
+  addMarkers(data=locations_referenced_joined_U, ~long, ~lat, label=~location_original, group = "Die Umsiedler (1953)") %>%
+  addMarkers(data=locations_referenced_joined_SA, ~long, ~lat, label=~location_original, group = "Die Schule der Atheisten (1972)") %>%
   addLayersControl(
-    overlayGroups = c("Zettel's Traum", "Abend mit Goldrand", "Gadir oder erkenne dich", "Brand's Haide", "Schwarze Spiegel", "Aus dem Leben eines Fauns", "Das steinerne Herz", "Kaff auch Mare Crisium", "Windmuehlen", "Kundisches Geschirr", "Piporakemes!", "Die Wasserstrasse", "Die Umsiedler", "Die Schule der Atheisten")
+    overlayGroups = c("Gadir oder erkenne dich (1949)", "Brand's Haide (1951)", "Schwarze Spiegel (1951)", "Aus dem Leben eines Fauns (1953)",  "Die Umsiedler (1953)", "Das steinerne Herz (1956)", "Kaff auch Mare Crisium (1960)", "Windmuehlen (1960)", "Kundisches Geschirr (1962)", "Piporakemes! (1962)", "Die Wasserstrasse (1963)", "Zettel's Traum (1970)", "Die Schule der Atheisten (1972)", "Abend mit Goldrand (1975)")
   )%>%
-  hideGroup(c("Zettel's Traum", "Abend mit Goldrand", "Gadir oder erkenne dich", "Brand's Haide", "Schwarze Spiegel", "Aus dem Leben eines Fauns", "Das steinerne Herz", "Kaff auch Mare Crisium", "Windmuehlen", "Kundisches Geschirr", "Piporakemes!", "Die Wasserstrasse", "Die Umsiedler", "Die Schule der Atheisten"))
+  hideGroup(c("Gadir oder erkenne dich (1949)", "Brand's Haide (1951)", "Schwarze Spiegel (1951)", "Aus dem Leben eines Fauns (1953)",  "Die Umsiedler (1953)", "Das steinerne Herz (1956)", "Kaff auch Mare Crisium (1960)", "Windmuehlen (1960)", "Kundisches Geschirr (1962)", "Piporakemes! (1962)", "Die Wasserstrasse (1963)", "Zettel's Traum (1970)", "Die Schule der Atheisten (1972)", "Abend mit Goldrand (1975)"))
   #m2
 ```
 
