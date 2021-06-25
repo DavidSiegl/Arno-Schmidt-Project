@@ -2,10 +2,10 @@
 title: "Project - Mapping the life and work of Arno Schmidt"
 author: "Florian Klement & David Siegl"
 output:
-  pdf_document: default
-  html_notebook: default
   html_document:
     df_print: paged
+  html_notebook: default
+  pdf_document: default
 ---
 
 ```{r}
@@ -35,6 +35,8 @@ library(igraph)
 library(ggraph)
 library(leaflet)
 library(htmlwidgets)
+library(gganimate)
+library(transformr)
 ```
 <b> Geocoding </b>
 ```{r}
@@ -128,6 +130,7 @@ locations_referenced_joined_count_top <- locations_referenced_joined_count %>%
 ggplot(data=locations_referenced_joined_count_top, aes(x=title, y=count_title, fill = title)) +
   geom_bar(stat="identity") +
   labs(title = "Works with most references", x = "Work", y = "References", fill = "Title") +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 ggplot(data=locations_referenced_joined_count_2, aes(x=location_original, y=count_location, fill = country_original)) +
@@ -174,7 +177,8 @@ ggplot(data = world) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
     theme(panel.background = element_rect(fill = waterColor),
           axis.title.y=element_blank(),
-          axis.title.x=element_blank())
+          axis.title.x=element_blank()) +
+    labs(title = "Distribution of Schmidt's locations of residence")
 
 locations_lived_1stperiod <- locations_lived %>%
   filter(moved_in >= 1914 & moved_in < 1938)
@@ -251,7 +255,8 @@ ggplot(data = world) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
     theme(panel.background = element_rect(fill = waterColor),
           axis.title.y=element_blank(),
-          axis.title.x=element_blank())
+          axis.title.x=element_blank()) +
+    labs(title = "Distribution of Schmidt's locations of residence in Germany")
 
 locations_lived_lüneburg <- locations_lived %>%
   filter(location_original == "Bargfeld" | location_original == "Cordingen")
@@ -272,6 +277,11 @@ ggplot(data = world) +
     theme(panel.background = element_rect(fill = waterColor),
           axis.title.y=element_blank(),
           axis.title.x=element_blank())
+```
+
+
+```{r}
+
 ```
 
 
@@ -301,8 +311,8 @@ m <- leaflet() %>%
   addMarkers(data=locations_lived_leaflet_2ndperiod, ~long, ~lat, popup=~popup, label=~location_original, group="1938-1945") %>%
   addMarkers(data=locations_lived_leaflet_3rdperiod, ~long, ~lat, popup=~popup, label=~location_original, group="1945-1979") %>%
   addLayersControl(
-    overlayGroups = c("1914-1938", "1938-1945", "1945-1979")
-  )
+    overlayGroups = c("1914-1938", "1938-1945", "1945-1979")) %>%
+    hideGroup(c("1914-1938", "1938-1945", "1945-1979"))
   #m
 ```
 
@@ -317,7 +327,7 @@ locations_referenced_unique <- locations_referenced %>%
   select(-c(1, 11)) %>%
   distinct()
 
-xlim=c(-10,16.5); ylim=c(35,63.5)
+xlim=c(-10,16.5); ylim=c(34,63.5)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
     geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
@@ -328,7 +338,8 @@ ggplot(data = world) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
     theme(panel.background = element_rect(fill = waterColor),
           axis.title.y=element_blank(),
-          axis.title.x=element_blank())
+          axis.title.x=element_blank()) +
+    labs(title = "Distribution of Schmidt's referenced locations")
 ```
 
 
