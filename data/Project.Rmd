@@ -161,24 +161,22 @@ waterColor = "lightsteelblue2"
 ```
 
 
-```{r}
+```{r fig.width=5, fig.height=7}
+
 locations_lived_dupl <- locations_lived %>%
   filter(id != 6)
 
 xlim=c(3.5,17); ylim=c(47.5,60)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
-    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
     geom_point(data = locations_lived_dupl, aes(x=long, y=lat), color = "red", size = 2) +
-    geom_text_repel(data = locations_lived_dupl, aes(x=long, y=lat, label = location_original), force = 3, segment.alpha = 0) +
+    geom_text_repel(data = locations_lived_dupl, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor)) +
     annotation_scale(location = "bl", width_hint = 0.25) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor),
-          axis.title.y=element_blank(),
-          axis.title.x=element_blank()) +
-    labs(title = "Distribution of Schmidt's locations of residence")
+    ggtitle("Distribution of Schmidt's locations of residence") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
 
 locations_lived_1stperiod <- locations_lived %>%
   filter(moved_in >= 1914 & moved_in < 1938)
@@ -192,50 +190,42 @@ locations_lived_3rdperiod <- locations_lived %>%
 xlim=c(3.5,17); ylim=c(47.5,60)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
-    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
-    geom_path(data = locations_lived_1stperiod, aes(x = long, y = lat), color = "red", size = .3) +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
+    geom_path(data = locations_lived_1stperiod, aes(x = long, y = lat), color = "red", size = 1) +
     geom_point(data = locations_lived_1stperiod, aes(x=long, y=lat), color = "black", size = 2) +
-    geom_text_repel(data = locations_lived_1stperiod, aes(x=long, y=lat, label = location_original), force = 3, segment.alpha = 0) +
+    geom_text_repel(data = locations_lived_1stperiod, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor)) +
     annotation_scale(location = "bl", width_hint = 0.25) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor),
-          axis.title.y=element_blank(),
-          axis.title.x=element_blank()) +
-    labs(title = "Schmidt's itinerary from 1914 to 1938")
+    ggtitle("Schmidt's itinerary from 1914 to 1938") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
+
 
 xlim=c(3.5,17); ylim=c(47.5,60)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
-    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
-    geom_path(data = locations_lived_2ndperiod, aes(x=long, y=lat), color = "red", size = .3) +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
+    geom_path(data = locations_lived_2ndperiod, aes(x=long, y=lat), color = "red", size = 0.3) +
     geom_point(data = locations_lived_2ndperiod, aes(x=long, y=lat), color = "black", size = 2) +
-    geom_text_repel(data = locations_lived_2ndperiod, aes(x=long, y=lat, label = location_original), force = 3, segment.alpha = 0) +
+    geom_text_repel(data = locations_lived_2ndperiod, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor)) +
     annotation_scale(location = "bl", width_hint = 0.25) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor),
-          axis.title.y=element_blank(),
-          axis.title.x=element_blank()) +
-    labs(title = "Schmidt's itinerary from 1938 to 1945")
+    ggtitle("Schmidt's itinerary from 1938 to 1945") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
 
 xlim=c(3.5,17); ylim=c(47.5,60)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
-    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
-    geom_path(data = locations_lived_3rdperiod, aes(x = long, y = lat), color = "red", size = .3) +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
     geom_point(data = locations_lived_3rdperiod, aes(x=long, y=lat), color = "black", size = 2) +
-    geom_text_repel(data = locations_lived_3rdperiod, aes(x=long, y=lat, label = location_original), force = 3, segment.alpha = 0) +
+    geom_path(data = locations_lived_3rdperiod, aes(x = long, y = lat), color = "red", size = 0.3) +
+    geom_text_repel(data = locations_lived_3rdperiod, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor)) +
     annotation_scale(location = "bl", width_hint = 0.25) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor),
-          axis.title.y=element_blank(),
-          axis.title.x=element_blank()) +
-    labs(title = "Schmidt's itinerary from 1945 to 1979")
+    ggtitle("Schmidt's itinerary from 1945 to 1979") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
 
 locations_lived_germ <- locations_lived %>%
   filter(country_current == "Germany")
@@ -243,40 +233,16 @@ locations_lived_germ <- locations_lived %>%
 xlim=c(6.25,11.5); ylim=c(48.5,54)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
-    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
-    geom_path(data = bundesländer_f, aes(x = long, y = lat, group = group), color = "red", size = .05) +
-    geom_polygon(data = lüneburg_f, aes(x = long, y = lat, group = group), color = "darkgreen", fill = "darkgreen", size =  .2) +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
+    geom_path(data = bundesländer_f, aes(x = long, y = lat, group = group), color = "red", size = 0.5) +
+    geom_polygon(data = lüneburg_f, aes(x = long, y = lat, group = group), color = "darkgreen", fill = "darkgreen", size =  1) +
     geom_point(data = locations_lived_germ, aes(x=long, y=lat, color=category), size = 2) +
     scale_color_manual(name="Area", values = c("city"="red", "village"="green")) +
-    geom_text_repel(data = locations_lived_germ, aes(x=long, y=lat, label = location_original), force = 3, segment.alpha = 0) +
+    geom_text_repel(data = locations_lived_germ, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor)) +
     annotation_scale(location = "bl", width_hint = 0.25) +
-    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor),
-          axis.title.y=element_blank(),
-          axis.title.x=element_blank()) +
-    labs(title = "Distribution of Schmidt's locations of residence in Germany")
-
-locations_lived_lüneburg <- locations_lived %>%
-  filter(location_original == "Bargfeld" | location_original == "Cordingen")
-
-xlim=c(8.5,11.5); ylim=c(52.25,54)
-ggplot(data = world) +
-    geom_sf(fill="white", color="white") +
-    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
-    geom_path(data = bundesländer_f, aes(x = long, y = lat, group = group), color = "red", size = .05) +
-    geom_polygon(data = lüneburg_f, aes(x = long, y = lat, group = group), color = "darkgreen", fill = "darkgreen", size =  .2) +
-    geom_point(data = locations_lived_lüneburg, aes(x=long, y=lat, color=category), size = 2) +
-    scale_color_manual(name="Area", values = c("city"="red", "village"="green")) +
-    geom_text_repel(data = locations_lived_lüneburg, aes(x=long, y=lat, label = location_original), force = 3, segment.alpha = 0) +
-    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor)) +
-    annotation_scale(location = "bl", width_hint = 0.25) +
-    coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor),
-          axis.title.y=element_blank(),
-          axis.title.x=element_blank())
+    ggtitle("Distribution of Schmidt's locations of residence in Germany") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
 ```
 
 
@@ -322,7 +288,7 @@ m <- leaflet() %>%
 ```
 
 
-```{r}
+```{r fig.width=5, fig.height=7}
 locations_referenced_unique <- locations_referenced %>%
   select(-c(1, 11)) %>%
   distinct()
@@ -330,16 +296,14 @@ locations_referenced_unique <- locations_referenced %>%
 xlim=c(-10,16.5); ylim=c(34,63.5)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
-    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = .3) +
+    geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
     geom_point(data = locations_referenced_unique, aes(x=long, y=lat), color = "red", size = 2) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor)) +
     annotation_scale(location = "bl", width_hint = 0.25) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
-    theme(panel.background = element_rect(fill = waterColor),
-          axis.title.y=element_blank(),
-          axis.title.x=element_blank()) +
-    labs(title = "Distribution of Schmidt's referenced locations")
+    ggtitle("Distribution of Schmidt's referenced locations") +
+    theme(panel.background = element_rect(fill = waterColor), plot.title = element_text(size = rel(1), hjust = 0.5), axis.title.y=element_blank(), axis.title.x=element_blank(), plot.margin=grid::unit(c(1,0,1,0), "mm"))
+
 ```
 
 
