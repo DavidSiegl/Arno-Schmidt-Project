@@ -35,9 +35,8 @@ library(igraph)
 library(ggraph)
 library(leaflet)
 library(htmlwidgets)
-library(gganimate)
-library(transformr)
 ```
+
 <b> Geocoding </b>
 ```{r}
 # locations_lived <- read.csv("./Arno Schmidt_locations_lived.csv")
@@ -191,7 +190,7 @@ xlim=c(3.5,17); ylim=c(47.5,60)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
     geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
-    geom_path(data = locations_lived_1stperiod, aes(x = long, y = lat), color = "red", size = 1) +
+    geom_path(data = locations_lived_1stperiod, aes(x = long, y = lat), color = "red", size = 0.3) +
     geom_point(data = locations_lived_1stperiod, aes(x=long, y=lat), color = "black", size = 2) +
     geom_text_repel(data = locations_lived_1stperiod, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
