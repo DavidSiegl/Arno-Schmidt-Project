@@ -13,14 +13,14 @@
   width: 50%;
 }
 
-  #myImg {
+  .myImg {
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
 }
 
-#myImg:hover {opacity: 0.7;}
-.modal {
+  .myImg:hover {opacity: 0.7;}
+  .modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -35,24 +35,24 @@
   background-color: rgba(0,0,0,0.9);
 }
 
-.modal-content {
+  .modal-content {
   margin: auto;
   display: block;
   width: 80%;
   max-width: 700px;
 }
 
-.modal-content, #caption {
+  .modal-content, #caption {
   animation-name: zoom;
   animation-duration: 0.6s;
 }
 
-@keyframes zoom {
+  @keyframes zoom {
   from {transform:scale(0)}
   to {transform:scale(1)}
 }
 
-.close {
+  .close {
   position: absolute;
   top: 15px;
   right: 35px;
@@ -62,14 +62,14 @@
   transition: 0.3s;
 }
 
-.close:hover,
-.close:focus {
+  .close:hover,
+  .close:focus {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
 }
 
-@media only screen and (max-width: 700px){
+  @media only screen and (max-width: 700px){
   .modal-content {
     width: 100%;
   }
@@ -86,10 +86,10 @@
     <div id="caption"></div>
     </div><br>
     <img class="myImg center" src="Locations References Map.png"><br>
-    <img class="myImg center" src="Locations Germany.png", class="center"><br>
-    <img class="myImg center" src="Itinerary 1.png", class="center"><br>
-    <img class="myImg center" src="Itinerary 2.png", class="center"><br>
-    <img class="myImg center" src="Itinerary 3.png", class="center"><br>
+    <img class="myImg center" src="Locations Germany.png"><br>
+    <img class="myImg center" src="Itinerary 1.png"><br>
+    <img class="myImg center" src="Itinerary 2.png"><br>
+    <img class="myImg center" src="Itinerary 3.png"><br>
 
 <script>
 
