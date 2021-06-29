@@ -127,15 +127,24 @@ locations_referenced_joined_count_2 <- locations_referenced_joined %>%
 locations_referenced_joined_count_top <- locations_referenced_joined_count %>%
   top_n(5, count_title)
 
+locations_referenced_joined_count_3 <- locations_referenced_joined %>%
+  filter(count_references != 0)
+
 ggplot(data=locations_referenced_joined_count_top, aes(x=title, y=count_title, fill = title)) +
   geom_bar(stat="identity") +
-  labs(title = "Works with most references", x = "Work", y = "References", fill = "Title") +
+  labs(title = "Works with most unique references", x = "Work", y = "References", fill = "Title") +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 ggplot(data=locations_referenced_joined_count_2, aes(x=location_original, y=count_location, fill = country_original)) +
   geom_bar(stat="identity") +
   labs(title = "Locations and their references", x = "Location", y = "References", fill = "Country") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggplot(data=locations_referenced_joined_count_3, aes(x=title, y=count_references, fill = title)) +
+  geom_bar(stat="identity") +
+  labs(title = "Number of references per work", x = "Work", y = "References", fill = "Title") +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
@@ -366,8 +375,8 @@ m2 <- leaflet() %>%
   addMarkers(data=locations_referenced_joined_G, ~long, ~lat, label=~location_original, popup=~popup, group = "Gadir oder erkenne dich (1949)") %>%
   addMarkers(data=locations_referenced_joined_B, ~long, ~lat, label=~location_original, popup=~popup, group = "Brand's Haide (1951)") %>%
   addMarkers(data=locations_referenced_joined_S, ~long, ~lat, label=~location_original, popup=~popup, group = "Schwarze Spiegel (1951)") %>%
-  addMarkers(data=locations_referenced_joined_F, ~long, ~lat, label=~location_original, group = "Aus dem Leben eines Fauns (1953)") %>%
-  addMarkers(data=locations_referenced_joined_H, ~long, ~lat, label=~location_original, group = "Das steinerne Herz (1956)") %>%
+  addMarkers(data=locations_referenced_joined_F, ~long, ~lat, label=~location_original, popup=~popup, group = "Aus dem Leben eines Fauns (1953)") %>%
+  addMarkers(data=locations_referenced_joined_H, ~long, ~lat, label=~location_original, popup=~popup, group = "Das steinerne Herz (1956)") %>%
   addMarkers(data=locations_referenced_joined_K, ~long, ~lat, label=~location_original, popup=~popup, group = "Kaff auch Mare Crisium (1960)") %>%
   addMarkers(data=locations_referenced_joined_W, ~long, ~lat, label=~location_original, popup=~popup, group = "Windmuehlen (1960)") %>%
   addMarkers(data=locations_referenced_joined_KG, ~long, ~lat, label=~location_original, popup=~popup, group = "Kundisches Geschirr (1962)") %>%
