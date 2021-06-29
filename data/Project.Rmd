@@ -2,10 +2,10 @@
 title: "Project - Mapping the life and work of Arno Schmidt"
 author: "Florian Klement & David Siegl"
 output:
+  pdf_document: default
+  html_notebook: default
   html_document:
     df_print: paged
-  html_notebook: default
-  pdf_document: default
 ---
 
 ```{r}
@@ -68,6 +68,7 @@ library(htmlwidgets)
 
 ```{r}
 locations_lived <- read.csv("./Arno Schmidt_locations_lived_latlong.csv")
+locations_itinerary <- read.csv("./Arno Schmidt_itinerary.csv")
 locations_referenced <- read.csv("./Arno Schmidt_locations_referenced_latlong.csv")
 works <- read.csv("./Arno Schmidt_works.csv")
 locations_works <- read.csv("./Arno Schmidt_locations_2.csv")
@@ -87,12 +88,12 @@ ggplot(data = locations_lived_duration, aes(x=country_original, y=duration, fill
 
 ggplot(data = locations_lived_duration, aes(x=state_original, y=duration, fill = country_original)) +
   geom_bar(stat = "identity") +
-  labs(title = "Duration per state", x = "State", y = "Duration", fill = "State") +
+  labs(title = "Duration per state", x = "State", y = "Duration", fill = "Country") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 ggplot(data = locations_lived_duration, aes(x=location_original, y=duration, fill = country_original)) +
   geom_bar(stat = "identity") +
-  labs(title = "Duration per location", x = "State", y = "Duration", fill = "Location") +
+  labs(title = "Duration per location", x = "State", y = "Duration", fill = "Country") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 ```{r}
@@ -179,18 +180,24 @@ ggplot(data = world) +
 
 locations_lived_1stperiod <- locations_lived %>%
   filter(moved_in >= 1914 & moved_in < 1938)
+locations_itinerary_1stperiod <- locations_itinerary %>%
+  filter(period == 1)
 
 locations_lived_2ndperiod <- locations_lived %>%
-  filter(moved_out >= 1940 & moved_out <= 1945)
+  filter(moved_out >= 1940 & moved_out <= 1945 | location_original == "Cordingen")
+locations_itinerary_2ndperiod <- locations_itinerary %>%
+  filter(period == 2)
 
 locations_lived_3rdperiod <- locations_lived %>%
   filter(moved_out >= 1950 & moved_out <= 1979)
+locations_itinerary_3rdperiod <- locations_itinerary %>%
+  filter(period == 3)
 
 xlim=c(3.5,17); ylim=c(47.5,60)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
     geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
-    geom_path(data = locations_lived_1stperiod, aes(x = long, y = lat), color = "red", size = 0.3) +
+    geom_curve(data = locations_itinerary_1stperiod, aes(x = startlong, y = startlat, xend = endlong, yend = endlat), color = "red", size = 1, arrow = arrow(length = unit(0.2,"cm"))) +
     geom_point(data = locations_lived_1stperiod, aes(x=long, y=lat), color = "black", size = 2) +
     geom_text_repel(data = locations_lived_1stperiod, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
@@ -204,7 +211,7 @@ xlim=c(3.5,17); ylim=c(47.5,60)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
     geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
-    geom_path(data = locations_lived_2ndperiod, aes(x=long, y=lat), color = "red", size = 0.3) +
+    geom_curve(data = locations_itinerary_2ndperiod, aes(x=startlong, y=startlat, xend = endlong, yend = endlat), color = "red", size = 1, curvature = -0.1, arrow = arrow(length = unit(0.2,"cm"))) +
     geom_point(data = locations_lived_2ndperiod, aes(x=long, y=lat), color = "black", size = 2) +
     geom_text_repel(data = locations_lived_2ndperiod, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
@@ -217,8 +224,8 @@ xlim=c(3.5,17); ylim=c(47.5,60)
 ggplot(data = world) +
     geom_sf(fill="white", color="white") +
     geom_path(data = rivers_f, aes(x = long, y = lat, group = group), color = waterColor, size = 1) +
+    geom_curve(data = locations_itinerary_3rdperiod, aes(x = startlong, y = startlat, xend=endlong, yend=endlat), color = "red", size = 1, arrow = arrow(length = unit(0.2,"cm"))) +
     geom_point(data = locations_lived_3rdperiod, aes(x=long, y=lat), color = "black", size = 2) +
-    geom_path(data = locations_lived_3rdperiod, aes(x = long, y = lat), color = "red", size = 0.3) +
     geom_text_repel(data = locations_lived_3rdperiod, aes(x=long, y=lat, label = location_original), size = 4, force = 3, segment.alpha = 0) +
     coord_sf(xlim = xlim, ylim = ylim, expand = FALSE) +
     annotation_scale(location = "bl", width_hint = 0.25) +
