@@ -138,12 +138,17 @@ ggplot(data=locations_referenced_joined_count_top, aes(x=title, y=count_title, f
 
 ggplot(data=locations_referenced_joined_count_2, aes(x=location_original, y=count_location, fill = country_original)) +
   geom_bar(stat="identity") +
-  labs(title = "Locations and their references", x = "Location", y = "References", fill = "Country") +
+  labs(title = "Locations and their unique appearances", x = "Location", y = "References", fill = "Country") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggplot(data=locations_referenced_joined_count_3, aes(x=location_original, y=count_references, fill = country_original)) +
+  geom_bar(stat="identity") +
+  labs(title = "Locations and their total references", x = "Location", y = "References", fill = "Country") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 ggplot(data=locations_referenced_joined_count_3, aes(x=title, y=count_references, fill = title)) +
   geom_bar(stat="identity") +
-  labs(title = "Number of references per work", x = "Work", y = "References", fill = "Title") +
+  labs(title = "Number of total references per work", x = "Work", y = "References", fill = "Title") +
   scale_y_continuous(breaks = scales::pretty_breaks(n = 7)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
